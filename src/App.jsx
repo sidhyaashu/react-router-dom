@@ -6,15 +6,18 @@ import A from './components/A';
 const LazyAbout = React.lazy(()=>import('./components/B'))
 import C from './components/C';
 import { Routes,Route } from "react-router-dom";
-
-
 import Nav from './components/Nav';
 import User from './components/User';
 import UserDetaile from './components/UserDetaile';
 import Admin from './components/Admin';
+import Profile from './components/Profile';
+import { AuthProvider } from './components/Auth';
+import Login from './components/Login';
+import RequireAuth from './components/RequireAuth';
 
 const App = () => {
   return (
+    <AuthProvider>
     <div className='App'>
       <Nav/>
       <Routes>
@@ -32,8 +35,11 @@ const App = () => {
           <Route path='/user/admin' element={<Admin/>}/>
           <Route path='/user/:id' element={<UserDetaile/>}/>
         </Route>
+        <Route path='profile' element={<RequireAuth><Profile/></RequireAuth>}/>
+        <Route path='/login' element={<Login/>}/>
       </Routes>
     </div>
+    </AuthProvider>
   )
 }
 
